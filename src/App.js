@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import RecipeList from "./RecipeList";
+import DepartmentList from "./DepartmentList";
+import Counter from "./Counter";
+import FunctionCounter from "./FunctionCounter";
+import { NavLink, Route, Routes } from "react-router-dom";
+import NoMatch from "./NoMatch";
+
+const activeLink = "active-link";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <h1>React Lessons</h1>
+      <div>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          clicking on any of the below will render the components we used during
+          that example
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </div>
+      <nav>
+        <NavLink className={({isActive}) => isActive ? activeLink : undefined} to="/recipes">
+          Recipe List
+        </NavLink>
+        <NavLink className={({isActive}) => isActive ? activeLink : undefined} to="/departments">
+          Department List
+        </NavLink>
+        <NavLink className={({isActive}) => isActive ? activeLink : undefined} to="/counter">
+          Two Counters
+        </NavLink>
+      </nav>
+      <Routes>
+        <Route path="/recipes" element={<RecipeList />} />
+        <Route path="/departments" element={<DepartmentList />} />
+        <Route
+          path="/counter"
+          element={
+            <>
+              <FunctionCounter />
+              <Counter />
+            </>
+          }
+        />
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
     </div>
   );
 }
